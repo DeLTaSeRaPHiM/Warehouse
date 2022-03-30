@@ -5,49 +5,51 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import warehouse.config.Warehouse;
 
-@SuppressWarnings("All")
+//@SuppressWarnings("All")
 
 public class Controller {
 
     @FXML
-    private TableColumn<?, ?> buyPriceColumn;
+    private TableColumn<Warehouse, String> buyPriceColumn;
 
     @FXML
-    private ChoiceBox<?> choiceboxDB;
+    private ChoiceBox choiceboxDB;
 
     @FXML
-    private ChoiceBox<?> choiceboxSearch;
+    private ChoiceBox choiceboxSearch;
 
     @FXML
-    private TableColumn<?, ?> idColumn;
+    private TableColumn<Warehouse, String> idColumn;
 
     @FXML
-    private TableColumn<?, ?> leftColumn;
+    private TableColumn<Warehouse, String> categoryColumn;
 
     @FXML
-    private TableColumn<?, ?> nameColumn;
+    private TableColumn<Warehouse, String> nameColumn;
 
     @FXML
-    private TableColumn<?, ?> quantityColumn;
+    private TableColumn<Warehouse, String> quantityColumn;
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private TableColumn<?, ?> sellPriceColumn;
+    private TableColumn<Warehouse, String> sellPriceColumn;
 
     @FXML
-    private TableColumn<?, ?> soldColumn;
+    private TableColumn<Warehouse, String> soldColumn;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<Warehouse> tableView;
 
     @FXML
-    private TableColumn<?, ?> typeColumn;
+    private TableColumn<Warehouse, String> typeColumn;
 
     @FXML
-    private TableColumn<?, ?> vendorColumn;
+    private TableColumn<Warehouse, String> vendorColumn;
+
 
     @FXML
     void addProduct(ActionEvent event) {

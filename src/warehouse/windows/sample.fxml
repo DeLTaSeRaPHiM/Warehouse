@@ -16,13 +16,13 @@
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="65.0" sortable="false" text="ID" />
             <TableColumn fx:id="nameColumn" prefWidth="139.0" text="Наименование" />
-            <TableColumn fx:id="typeColumn" prefWidth="112.0" text="Тип" />
-            <TableColumn fx:id="vendorColumn" prefWidth="134.0" text="Производитель" />
-            <TableColumn fx:id="quantityColumn" prefWidth="134.0" text="Кол-во" />
+            <TableColumn fx:id="categoryColumn" prefWidth="123.0" text="Категория товара" />
+            <TableColumn fx:id="typeColumn" prefWidth="101.0" text="Тип" />
+            <TableColumn fx:id="vendorColumn" prefWidth="166.0" text="Производитель" />
+            <TableColumn fx:id="quantityColumn" prefWidth="90.0" text="Кол-во" />
             <TableColumn fx:id="sellPriceColumn" prefWidth="104.0" text="Цена розницы" />
             <TableColumn fx:id="buyPriceColumn" prefWidth="100.0" text="Цена закупки" />
             <TableColumn fx:id="soldColumn" prefWidth="100.0" text="Цена продаж" />
-            <TableColumn fx:id="leftColumn" prefWidth="100.0" text="Цена остатка" />
          </columns>
       </TableView>
       <ChoiceBox fx:id="choiceboxDB" layoutX="14.0" layoutY="14.0" prefWidth="150.0" value="Все" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
