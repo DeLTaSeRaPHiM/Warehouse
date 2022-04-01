@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import warehouse.config.Warehouse;
+import static warehouse.database.Configs.warehouseTemp;
 import warehouse.database.DatabaseHandler;
 
 import java.io.IOException;
@@ -74,6 +75,14 @@ public class MainController {
     }
 
     /**
+     * Метод обновления таблицы
+     */
+    @FXML
+    void updateTableData(ActionEvent event) {
+        updateTable();
+    }
+
+    /**
      * Метод отображения окна добавления значений в базу данных
      */
     @FXML
@@ -99,15 +108,43 @@ public class MainController {
      */
     @FXML
     void editProduct(ActionEvent event) {
+        Warehouse warehouse = new Warehouse();
+        warehouse = tableView.getSelectionModel().getSelectedItem();
 
+        warehouseTemp = warehouse;
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/warehouse/windows/UpdateProductWindow.fxml"));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        stage.setResizable(false);
     }
 
     /**
-     * Метод сортировки и отображения базы данных по категории товара
+     * Метод удаления значения строки в таблице
      */
     @FXML
-    void filterOnType(ActionEvent event) {
-
+    void deleteProduct(ActionEvent event) {
+        Warehouse warehouse = new Warehouse();
+        warehouse = tableView.getSelectionModel().getSelectedItem();
+        try {
+            if (warehouse != null) {
+                int id = warehouse.getId();
+                databaseHandler.deleteRow(id);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        updateTable();
     }
 
     /**
@@ -119,10 +156,24 @@ public class MainController {
     }
 
     /**
-     * Метод удаления значения строки в таблице
+     * Метод сортировки и отображения базы данных по категории товара
      */
     @FXML
-    void deleteProduct(ActionEvent event) {
+    void filterOnCategory(ActionEvent event) {
+        String choice = (String) choiceboxDB.getValue();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("productCategory"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("productType"));
+        vendorColumn.setCellValueFactory(new PropertyValueFactory<>("vendor"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
+        purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
+        sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+
+        dbTableList = databaseHandler.sortByCategory(choice);
+        tableView.setItems(dbTableList);
 
     }
 
@@ -131,13 +182,32 @@ public class MainController {
      */
     @FXML
     void searchOnType(ActionEvent event) {
+        String search = "%" + searchField.getText() + "%";
+        String choice = (String) choiceboxSearch.getValue();
+        System.out.println(search);
 
+        if (search.equals("")) {
+            updateTable();
+        } else {
+            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            categoryColumn.setCellValueFactory(new PropertyValueFactory<>("productCategory"));
+            typeColumn.setCellValueFactory(new PropertyValueFactory<>("productType"));
+            vendorColumn.setCellValueFactory(new PropertyValueFactory<>("vendor"));
+            quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+            retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
+            purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
+            sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+
+            dbTableList = databaseHandler.findProduct(search, choice);
+            tableView.setItems(dbTableList);
+        }
     }
 
     /**
      * Метод для обновления содержимого главной таблицы
      */
-    void updateTable(){
+    void updateTable() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("productCategory"));

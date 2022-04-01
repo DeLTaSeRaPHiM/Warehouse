@@ -33,7 +33,7 @@
             <String fx:value="Видеонаблюдение" />
             <String fx:value="СКУД" />
             <String fx:value="Сетевое оборудование" />
-            <String fx:value="Испочники питания" />
+            <String fx:value="Источники питания" />
          </FXCollections>
       </items>
       </ChoiceBox>
@@ -50,7 +50,7 @@
       </items>
       </ChoiceBox>
       <TextField fx:id="searchField" layoutX="911.0" layoutY="49.0" onAction="#searchOnType" prefHeight="25.0" prefWidth="225.0" promptText="Поиск" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-      <Button layoutX="193.0" layoutY="14.0" mnemonicParsing="false" onAction="#filterOnType" text="Сменить" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="15.0" />
+      <Button layoutX="193.0" layoutY="14.0" mnemonicParsing="false" onAction="#filterOnCategory" text="Сменить" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="15.0" />
       <Button layoutX="23.0" layoutY="661.0" mnemonicParsing="false" onAction="#addProduct" prefWidth="70.0" text="Добавить" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
       <Button layoutX="278.0" layoutY="661.0" mnemonicParsing="false" onAction="#editProduct" prefWidth="70.0" text="Изменить" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="110.0" />
       <Button layoutX="451.0" layoutY="661.0" mnemonicParsing="false" onAction="#deleteProduct" prefWidth="70.0" text="Удалить" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" />

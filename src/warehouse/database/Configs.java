@@ -1,5 +1,7 @@
 package warehouse.database;
 
+import warehouse.config.Warehouse;
+
 public class Configs {
 
     protected String dbHost = "localhost";
@@ -8,5 +10,7 @@ public class Configs {
     protected String dbPass = "12345";
 
     protected String dbName= "warehouse_db";
+
+    public static Warehouse warehouseTemp = new Warehouse();
 
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehouse.controllers.SellsListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehouse.controllers.SellsJournalController">
    <children>
       <TableView fx:id="tableView" layoutX="14.0" layoutY="134.0" prefHeight="508.0" prefWidth="1119.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="130.0">
          <columns>
@@ -37,14 +37,14 @@
       </items>
       </ChoiceBox>
       <Label layoutX="915.0" layoutY="19.0" text="Искать по:" AnchorPane.rightAnchor="177.0" AnchorPane.topAnchor="19.0" />
-      <ChoiceBox fx:id="choiceboxSearch" layoutX="985.0" layoutY="14.0" prefWidth="150.0" value="ID" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
+      <ChoiceBox fx:id="choiceboxSearch" layoutX="985.0" layoutY="14.0" prefWidth="150.0" value="Наименованию" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
       <items>
          <FXCollections fx:factory="observableArrayList">
-            <String fx:value="Ежегодное событие" />
-            <String fx:value="Ежемесячное событие" />
-            <String fx:value="Еженедельное событие" />
-            <String fx:value="Ежедневное событие" />
-            <String fx:value="Однодневное событие" />
+            <String fx:value="Наименованию" />
+            <String fx:value="Категории" />
+            <String fx:value="Типу" />
+            <String fx:value="Производителю" />
+            <String fx:value="Кол-ву" />
          </FXCollections>
       </items>
       </ChoiceBox>

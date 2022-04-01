@@ -92,34 +92,152 @@ public class DatabaseHandler extends Configs {
      * @param warehouse объект с содержимым базы данных для изменения
      */
     public void updateProduct(Warehouse warehouse) {
+        String insert = "UPDATE " + Constants.WAREHOUSE_DB + " SET " + Constants.NAME + "=?," +
+                Constants.CATEGORY_PRODUCT + "=?," + Constants.TYPE_PRODUCT + "=?," + Constants.VENDOR + "=?," +
+                Constants.QUANTITY + "=?," + Constants.RETAIL_PRICE + "=?," + Constants.PURCHASE_PRICE + "=?," +
+                Constants.SELL_PRICE + "=? WHERE " + Constants.ID + "=?";
 
-    }
-
-    public void deleteRows(String id) {
         try {
-            Connection connection = getConnection();
-            String sql = "DELETE FROM"  + Constants.WAREHOUSE_DB + "WHERE " + Constants.ID + " = " + id + ";";
+            PreparedStatement prSt = getConnection().prepareStatement(insert);
 
-            PreparedStatement prSt = connection.prepareStatement(sql);
+            prSt.setString(1, warehouse.getName());
+            prSt.setString(2, warehouse.getProductCategory());
+            prSt.setString(3, warehouse.getProductType());
+            prSt.setString(4, warehouse.getVendor());
+            prSt.setInt(5, warehouse.getQuantity());
+            prSt.setDouble(6, warehouse.getRetailPrice());
+            prSt.setDouble(7, warehouse.getPurchasePrice());
+            prSt.setDouble(8, warehouse.getSellPrice());
+            prSt.setInt(9, warehouse.getId());
+
             prSt.executeUpdate();
-        } catch(Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Метод проверки уникальности названия товара
-     * @param warehouse
-     * @return
+     * Метод удаления выбранной строки таблицы
+     * @param id
      */
-    public ResultSet checkName(Warehouse warehouse) {
+    public void deleteRow(int id) {
+        String delete = "DELETE FROM " + Constants.WAREHOUSE_DB + " WHERE " + Constants.ID + "=?;";
+
+        try {
+            PreparedStatement prSt = getConnection().prepareStatement(delete);
+            prSt.setInt(1, id);
+
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Метод отображения таблицы базы данных с фильтром категории
+     * @return возвращает отсортированную базу данных
+     */
+    public ObservableList<Warehouse> sortByCategory(String choice) {
+        String sql = "SELECT * FROM " + Constants.WAREHOUSE_DB + " WHERE " + Constants.CATEGORY_PRODUCT + "=?";
+        try {
+            PreparedStatement prSt = getConnection().prepareStatement(sql);
+            prSt.setString(1, (choice));
+
+            ResultSet result = prSt.executeQuery();
+            ObservableList<Warehouse> list = FXCollections.observableArrayList();
+            while (result.next()) { //Получение данных из столбцов базы данных
+                Warehouse warehouse = new Warehouse();
+
+                warehouse.setId(result.getInt(Constants.ID));
+                warehouse.setName(result.getString(Constants.NAME));
+                warehouse.setProductCategory(result.getString(Constants.CATEGORY_PRODUCT));
+                warehouse.setProductType(result.getString(Constants.TYPE_PRODUCT));
+                warehouse.setVendor(result.getString(Constants.VENDOR));
+                warehouse.setQuantity(result.getInt(Constants.QUANTITY));
+                warehouse.setRetailPrice(result.getInt(Constants.RETAIL_PRICE));
+                warehouse.setPurchasePrice(result.getInt(Constants.PURCHASE_PRICE));
+                warehouse.setSellPrice(result.getInt(Constants.SELL_PRICE));
+
+                list.add(warehouse);
+            }
+            return list;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Метод поиска с фильтром значения выбранного столбца в базе данных
+     * @param search идентификатор поиска
+     * @return возвращает отсортированную базу данных
+     */
+    public ObservableList<Warehouse> findProduct(String search, String choice) {
+        String flag;
+        switch (choice) {
+            case "Наименованию":
+                flag = Constants.NAME;
+                break;
+            case "Категории":
+                flag = Constants.CATEGORY_PRODUCT;
+                break;
+            case "Типу":
+                flag = Constants.TYPE_PRODUCT;
+                break;
+            case "Производителю":
+                flag = Constants.VENDOR;
+                break;
+            case "Кол-ву":
+                flag = Constants.QUANTITY;
+                break;
+            default:
+                flag = Constants.NAME;
+        }
+
+        String sql = "SELECT * FROM " + Constants.WAREHOUSE_DB + " WHERE " + flag + " LIKE (?)";
+        try {
+            PreparedStatement prSt = getConnection().prepareStatement(sql);
+            prSt.setString(1, search);
+
+            ResultSet result = prSt.executeQuery();
+            ObservableList<Warehouse> list = FXCollections.observableArrayList();
+            while (result.next()) { //Получение данных из столбцов базы данных
+                Warehouse warehouse = new Warehouse();
+
+                warehouse.setId(result.getInt(Constants.ID));
+                warehouse.setName(result.getString(Constants.NAME));
+                warehouse.setProductCategory(result.getString(Constants.CATEGORY_PRODUCT));
+                warehouse.setProductType(result.getString(Constants.TYPE_PRODUCT));
+                warehouse.setVendor(result.getString(Constants.VENDOR));
+                warehouse.setQuantity(result.getInt(Constants.QUANTITY));
+                warehouse.setRetailPrice(result.getInt(Constants.RETAIL_PRICE));
+                warehouse.setPurchasePrice(result.getInt(Constants.PURCHASE_PRICE));
+                warehouse.setSellPrice(result.getInt(Constants.SELL_PRICE));
+
+                list.add(warehouse);
+            }
+            return list;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Метод проверки уникальности названия товара
+     * @param name проверяемое имя поля
+     * @return возвращает найденные поля с данным именем
+     */
+    public ResultSet checkName(String name) {
         ResultSet resSet = null;
         String sql = "SELECT * FROM " + Constants.WAREHOUSE_DB + " WHERE " + Constants.NAME + "=?";
 
         try {
             PreparedStatement prSt = getConnection().prepareStatement(sql);
 
-            prSt.setString(1, warehouse.getName());
+            prSt.setString(1, name);
 
             resSet = prSt.executeQuery();
         } catch (SQLException e) {

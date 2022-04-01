@@ -2,14 +2,12 @@ package warehouse.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import warehouse.config.Warehouse;
 import warehouse.database.DatabaseHandler;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -63,7 +61,7 @@ public class AddProductController {
         warehouse.setPurchasePrice(Double.parseDouble(purchasePriceField.getText()));
         warehouse.setSellPrice(Double.parseDouble(sellPriceField.getText()));
 
-        ResultSet resultSet = databaseHandler.checkName(warehouse);
+        ResultSet resultSet = databaseHandler.checkName(warehouse.getName());
         try {
             while (resultSet.next()) {
                 counter++;
@@ -76,7 +74,6 @@ public class AddProductController {
             databaseHandler.addProduct(warehouse);
         }
 
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("warehouse/window/sample.fxml"));
         Stage stage = (Stage) addButton.getScene().getWindow();
         stage.close();
     }
