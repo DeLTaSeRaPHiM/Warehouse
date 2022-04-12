@@ -54,7 +54,7 @@ public class AddProductController {
         Warehouse warehouse = new Warehouse();
         warehouse.setName(nameField.getText());
         warehouse.setProductCategory(categoryField.getText());
-        warehouse.setProductType(categoryField.getText());
+        warehouse.setProductType(typeField.getText());
         warehouse.setVendor(vendorField.getText());
         warehouse.setQuantity(Integer.parseInt(quantityField.getText()));
         warehouse.setRetailPrice(Double.parseDouble(retailPriceField.getText()));

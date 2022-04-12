@@ -108,25 +108,27 @@ public class MainController {
      */
     @FXML
     void editProduct(ActionEvent event) {
-        Warehouse warehouse = new Warehouse();
+        Warehouse warehouse;
         warehouse = tableView.getSelectionModel().getSelectedItem();
 
-        warehouseTemp = warehouse;
+        if (warehouse != null) {
+            warehouseTemp = warehouse;
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/warehouse/windows/UpdateProductWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/warehouse/windows/UpdateProductWindow.fxml"));
 
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Parent root = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setResizable(false);
         }
-
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-        stage.setResizable(false);
     }
 
     /**
@@ -134,7 +136,7 @@ public class MainController {
      */
     @FXML
     void deleteProduct(ActionEvent event) {
-        Warehouse warehouse = new Warehouse();
+        Warehouse warehouse;
         warehouse = tableView.getSelectionModel().getSelectedItem();
         try {
             if (warehouse != null) {
@@ -172,8 +174,12 @@ public class MainController {
         purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
         sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
 
-        dbTableList = databaseHandler.sortByCategory(choice);
-        tableView.setItems(dbTableList);
+        if (!choice.matches("Все")) {
+            dbTableList = databaseHandler.sortByCategory(choice);
+            tableView.setItems(dbTableList);
+        } else {
+            updateTable();
+        }
 
     }
 

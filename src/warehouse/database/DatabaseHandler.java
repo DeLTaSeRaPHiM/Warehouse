@@ -15,7 +15,10 @@ public class DatabaseHandler extends Configs {
     public Connection getConnection()
             throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
-                + "?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false";
+                + "?useUnicode=true"
+                + "&serverTimezone=UTC"
+                + "&useSSL=true"
+                + "&verifyServerCertificate=false";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -120,7 +123,7 @@ public class DatabaseHandler extends Configs {
 
     /**
      * Метод удаления выбранной строки таблицы
-     * @param id
+     * @param id ID поля для удаления
      */
     public void deleteRow(int id) {
         String delete = "DELETE FROM " + Constants.WAREHOUSE_DB + " WHERE " + Constants.ID + "=?;";
@@ -194,6 +197,7 @@ public class DatabaseHandler extends Configs {
                 break;
             default:
                 flag = Constants.NAME;
+                break;
         }
 
         String sql = "SELECT * FROM " + Constants.WAREHOUSE_DB + " WHERE " + flag + " LIKE (?)";
