@@ -8,8 +8,10 @@ import javafx.stage.Stage;
 import warehouse.config.Warehouse;
 import warehouse.database.DatabaseHandler;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class AddProductController {
 
@@ -35,9 +37,6 @@ public class AddProductController {
     private TextField quantityField;
 
     @FXML
-    private TextField retailPriceField;
-
-    @FXML
     private Button addButton;
 
     @FXML
@@ -46,20 +45,24 @@ public class AddProductController {
     DatabaseHandler databaseHandler = new DatabaseHandler();
     int counter = 0;
 
+
     /**
      * Метод добавления значений полей в базу данных
      */
     @FXML
     public void add(ActionEvent event) {
+        LocalDate localDate = LocalDate.now();
+        String temp = localDate.toString();
+
         Warehouse warehouse = new Warehouse();
         warehouse.setName(nameField.getText());
         warehouse.setProductCategory(categoryField.getText());
         warehouse.setProductType(typeField.getText());
         warehouse.setVendor(vendorField.getText());
         warehouse.setQuantity(Integer.parseInt(quantityField.getText()));
-        warehouse.setRetailPrice(Double.parseDouble(retailPriceField.getText()));
         warehouse.setPurchasePrice(Double.parseDouble(purchasePriceField.getText()));
         warehouse.setSellPrice(Double.parseDouble(sellPriceField.getText()));
+        warehouse.setLastUpdateDate(temp);
 
         ResultSet resultSet = databaseHandler.checkName(warehouse.getName());
         try {

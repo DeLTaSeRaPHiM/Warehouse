@@ -1,5 +1,7 @@
 package warehouse.config;
 
+import java.sql.Date;
+
 public class Warehouse {
     private int id;
     private String name;
@@ -7,22 +9,22 @@ public class Warehouse {
     private String productType;
     private String vendor;
     private int quantity;
-    private double retailPrice;
     private double purchasePrice;
     private double sellPrice;
+    private String lastUpdateDate;
 
     public Warehouse(int id, String name, String productCategory,
                      String productType, String vendor, int quantity,
-                     double retailPrice, double purchasePrice, double sellPrice) {
+                     double purchasePrice, double sellPrice, String lastUpdateDate) {
         this.id = id;
         this.name = name;
         this.productCategory = productCategory;
         this.productType = productType;
         this.vendor = vendor;
         this.quantity = quantity;
-        this.retailPrice = retailPrice;
         this.purchasePrice = purchasePrice;
         this.sellPrice = sellPrice;
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public Warehouse() {}
@@ -75,14 +77,6 @@ public class Warehouse {
         this.quantity = quantity;
     }
 
-    public double getRetailPrice() {
-        return retailPrice;
-    }
-
-    public void setRetailPrice(double retailPrice) {
-        this.retailPrice = retailPrice;
-    }
-
     public double getPurchasePrice() {
         return purchasePrice;
     }
@@ -97,5 +91,13 @@ public class Warehouse {
 
     public void setSellPrice(double sellPrice) {
         this.sellPrice = sellPrice;
+    }
+
+    public String getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(String lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 }

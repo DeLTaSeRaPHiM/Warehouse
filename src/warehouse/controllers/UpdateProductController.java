@@ -2,16 +2,13 @@ package warehouse.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import warehouse.config.Warehouse;
-import warehouse.database.Configs;
 import warehouse.database.DatabaseHandler;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
 
 import static warehouse.database.Configs.warehouseTemp;
 
@@ -39,9 +36,6 @@ public class UpdateProductController {
     private TextField quantityField;
 
     @FXML
-    private TextField retailPriceField;
-
-    @FXML
     private Button updateButton;
 
     @FXML
@@ -59,13 +53,15 @@ public class UpdateProductController {
         typeField.setText(warehouse.getProductType());
         vendorField.setText(warehouse.getVendor());
         quantityField.setText(String.valueOf(warehouse.getQuantity()));
-        retailPriceField.setText(String.valueOf(warehouse.getRetailPrice()));
         purchasePriceField.setText(String.valueOf(warehouse.getPurchasePrice()));
         sellPriceField.setText(String.valueOf(warehouse.getSellPrice()));
     }
 
     @FXML
     void update(ActionEvent event) {
+        LocalDate localDate = LocalDate.now();
+        String stDate = localDate.toString();
+
         Warehouse warehouse = new Warehouse();
         warehouse.setId(warehouseTemp.getId());
         warehouse.setName(nameField.getText());
@@ -73,9 +69,9 @@ public class UpdateProductController {
         warehouse.setProductType(typeField.getText());
         warehouse.setVendor(vendorField.getText());
         warehouse.setQuantity(Integer.parseInt(quantityField.getText()));
-        warehouse.setRetailPrice(Double.parseDouble(retailPriceField.getText()));
         warehouse.setPurchasePrice(Double.parseDouble(purchasePriceField.getText()));
         warehouse.setSellPrice(Double.parseDouble(sellPriceField.getText()));
+        warehouse.setLastUpdateDate(stDate);
 
         databaseHandler.updateProduct(warehouse);
 

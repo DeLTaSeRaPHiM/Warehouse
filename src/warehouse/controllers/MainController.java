@@ -18,6 +18,8 @@ import static warehouse.database.Configs.warehouseTemp;
 import warehouse.database.DatabaseHandler;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 
 //@SuppressWarnings("All")
 
@@ -42,7 +44,7 @@ public class MainController {
     private TableColumn<Warehouse, String> quantityColumn;
 
     @FXML
-    private TableColumn<Warehouse, String> retailPriceColumn;
+    private TableColumn<Warehouse, String> lastUpdateDateColumn;
 
     @FXML
     private TableColumn<Warehouse, String> sellPriceColumn;
@@ -153,8 +155,13 @@ public class MainController {
      * Метод перехода к таблице продаж
      */
     @FXML
-    void checkSells(ActionEvent event) {
+    void showDescription(ActionEvent event) {
+        Warehouse warehouse;
+        warehouse = tableView.getSelectionModel().getSelectedItem();
 
+        LocalDate localDate = LocalDate.now();
+        String stDate = localDate.toString();
+        System.out.println(stDate);
     }
 
     /**
@@ -170,9 +177,9 @@ public class MainController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("productType"));
         vendorColumn.setCellValueFactory(new PropertyValueFactory<>("vendor"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
         purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
         sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+        lastUpdateDateColumn.setCellValueFactory(new PropertyValueFactory<>("lastUpdateDate"));
 
         if (!choice.matches("Все")) {
             dbTableList = databaseHandler.sortByCategory(choice);
@@ -201,9 +208,9 @@ public class MainController {
             typeColumn.setCellValueFactory(new PropertyValueFactory<>("productType"));
             vendorColumn.setCellValueFactory(new PropertyValueFactory<>("vendor"));
             quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-            retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
             purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
             sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+            lastUpdateDateColumn.setCellValueFactory(new PropertyValueFactory<>("lastUpdateDate"));
 
             dbTableList = databaseHandler.findProduct(search, choice);
             tableView.setItems(dbTableList);
@@ -220,9 +227,9 @@ public class MainController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("productType"));
         vendorColumn.setCellValueFactory(new PropertyValueFactory<>("vendor"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
         purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
         sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+        lastUpdateDateColumn.setCellValueFactory(new PropertyValueFactory<>("lastUpdateDate"));
 
         dbTableList = databaseHandler.getProduct();
         tableView.setItems(dbTableList);

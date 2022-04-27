@@ -45,9 +45,9 @@ public class DatabaseHandler extends Configs {
                 warehouse.setProductType(result.getString(Constants.TYPE_PRODUCT));
                 warehouse.setVendor(result.getString(Constants.VENDOR));
                 warehouse.setQuantity(result.getInt(Constants.QUANTITY));
-                warehouse.setRetailPrice(result.getInt(Constants.RETAIL_PRICE));
                 warehouse.setPurchasePrice(result.getInt(Constants.PURCHASE_PRICE));
                 warehouse.setSellPrice(result.getInt(Constants.SELL_PRICE));
+                warehouse.setLastUpdateDate(result.getString(Constants.LAST_UPDATE_DATE));
 
                 list.add(warehouse);
             }
@@ -67,8 +67,8 @@ public class DatabaseHandler extends Configs {
     public void addProduct(Warehouse warehouse) {
         String insert = "INSERT INTO " + Constants.WAREHOUSE_DB + "(" + Constants.NAME + ", "
                 + Constants.CATEGORY_PRODUCT + ", " + Constants.TYPE_PRODUCT + ", " + Constants.VENDOR + ", "
-                + Constants.QUANTITY + ", " + Constants.RETAIL_PRICE + ", " + Constants.PURCHASE_PRICE + ", "
-                + Constants.SELL_PRICE + ") " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                + Constants.QUANTITY + ", " + Constants.PURCHASE_PRICE + ", "
+                + Constants.SELL_PRICE  + ", " + Constants.LAST_UPDATE_DATE + ") " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement prSt = getConnection().prepareStatement(insert);
@@ -78,9 +78,9 @@ public class DatabaseHandler extends Configs {
             prSt.setString(3, warehouse.getProductType());
             prSt.setString(4, warehouse.getVendor());
             prSt.setInt(5, warehouse.getQuantity());
-            prSt.setDouble(6, warehouse.getRetailPrice());
-            prSt.setDouble(7, warehouse.getPurchasePrice());
-            prSt.setDouble(8, warehouse.getSellPrice());
+            prSt.setDouble(6, warehouse.getPurchasePrice());
+            prSt.setDouble(7, warehouse.getSellPrice());
+            prSt.setString(8, warehouse.getLastUpdateDate());
 
             prSt.executeUpdate();
         } catch (SQLException e) {
@@ -96,9 +96,9 @@ public class DatabaseHandler extends Configs {
      */
     public void updateProduct(Warehouse warehouse) {
         String insert = "UPDATE " + Constants.WAREHOUSE_DB + " SET " + Constants.NAME + "=?," +
-                Constants.CATEGORY_PRODUCT + "=?," + Constants.TYPE_PRODUCT + "=?," + Constants.VENDOR + "=?," +
-                Constants.QUANTITY + "=?," + Constants.RETAIL_PRICE + "=?," + Constants.PURCHASE_PRICE + "=?," +
-                Constants.SELL_PRICE + "=? WHERE " + Constants.ID + "=?";
+                Constants.CATEGORY_PRODUCT + "=?, " + Constants.TYPE_PRODUCT + "=?, " + Constants.VENDOR + "=?, " +
+                Constants.QUANTITY + "=?, " + Constants.PURCHASE_PRICE + "=?, " + Constants.SELL_PRICE + "=?, " +
+                Constants.LAST_UPDATE_DATE + "=? " + " WHERE " + Constants.ID + "=?";
 
         try {
             PreparedStatement prSt = getConnection().prepareStatement(insert);
@@ -108,9 +108,9 @@ public class DatabaseHandler extends Configs {
             prSt.setString(3, warehouse.getProductType());
             prSt.setString(4, warehouse.getVendor());
             prSt.setInt(5, warehouse.getQuantity());
-            prSt.setDouble(6, warehouse.getRetailPrice());
-            prSt.setDouble(7, warehouse.getPurchasePrice());
-            prSt.setDouble(8, warehouse.getSellPrice());
+            prSt.setDouble(6, warehouse.getPurchasePrice());
+            prSt.setDouble(7, warehouse.getSellPrice());
+            prSt.setString(8, warehouse.getLastUpdateDate());
             prSt.setInt(9, warehouse.getId());
 
             prSt.executeUpdate();
@@ -159,9 +159,9 @@ public class DatabaseHandler extends Configs {
                 warehouse.setProductType(result.getString(Constants.TYPE_PRODUCT));
                 warehouse.setVendor(result.getString(Constants.VENDOR));
                 warehouse.setQuantity(result.getInt(Constants.QUANTITY));
-                warehouse.setRetailPrice(result.getInt(Constants.RETAIL_PRICE));
                 warehouse.setPurchasePrice(result.getInt(Constants.PURCHASE_PRICE));
                 warehouse.setSellPrice(result.getInt(Constants.SELL_PRICE));
+                warehouse.setLastUpdateDate(result.getString(Constants.LAST_UPDATE_DATE));
 
                 list.add(warehouse);
             }
@@ -216,9 +216,9 @@ public class DatabaseHandler extends Configs {
                 warehouse.setProductType(result.getString(Constants.TYPE_PRODUCT));
                 warehouse.setVendor(result.getString(Constants.VENDOR));
                 warehouse.setQuantity(result.getInt(Constants.QUANTITY));
-                warehouse.setRetailPrice(result.getInt(Constants.RETAIL_PRICE));
                 warehouse.setPurchasePrice(result.getInt(Constants.PURCHASE_PRICE));
                 warehouse.setSellPrice(result.getInt(Constants.SELL_PRICE));
+                warehouse.setLastUpdateDate(result.getString(Constants.LAST_UPDATE_DATE));
 
                 list.add(warehouse);
             }
